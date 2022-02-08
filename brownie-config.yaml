@@ -6,7 +6,8 @@ compiler:
     remappings: 
       - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1'
 dotenv: .env
-networks:
+networks:  
+  default: development #### if not set default then default = development
   kovan:
     eth_usd_price_feed: "0x9326BFA02ADD2366B30BACB125260AF641031331"
     verify: True
