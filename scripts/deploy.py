@@ -1,20 +1,21 @@
 from brownie import FundMe, MockV3Aggregator, network, config
-from scripts.helpful_scripts import get_account
+from scripts.helpful_scripts import deploy_mocks, get_account
+from web3 import Web3
 
 
 def deploy_fund_me():
     account = get_account()
 
-    if network.show_active() != "development":
+    if (
+        network.show_active() != "development"
+        and network.show_active() != "ganache-local"
+    ):
         price_feed_address = config["networks"][network.show_active()][
             "eth_usd_price_feed"
         ]
     else:
-        print(f"The active network is {network.show_active()}")
-        print(f"Deploying Mocks")
-        mock_aggregator = MockV3Aggregator.deploy(18, 2000 * 10**8, {"from": account})
-        print(f"Mocks deployed.")
-        price_feed_address = mock_aggregator.address
+        deploy_mocks()
+        price_feed_address = MockV3Aggregator[-1]
 
     fund_me = FundMe.deploy(
         price_feed_address,
