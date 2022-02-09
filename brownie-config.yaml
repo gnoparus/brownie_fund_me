@@ -11,9 +11,9 @@ networks:
   kovan:
     eth_usd_price_feed: "0x9326BFA02ADD2366B30BACB125260AF641031331"
     verify: True
-  mainnet: 
+  mainnet-fork-dev: 
     eth_usd_price_feed: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419"
-    verify: True
+    verify: False
   development:
     verify: False
   ganache-local:
